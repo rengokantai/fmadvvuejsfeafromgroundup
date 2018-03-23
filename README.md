@@ -117,3 +117,19 @@ virtual dom def:
 - A lightweight javascript data format to represent what the actual DOM should look like at a given point in time
 - Decouples rendering logic from the actual dom - enables rendering capabilities in non-browser environments
 - eg server-side and native mobule rendering
+
+
+### Challenge 5: Dynamically Rendering Tags
+implement example component
+```
+<example :tags=['h1','h2']></example>
+```
+renders
+```
+<div>
+  <h1>0</h1>
+  <h2>1</h2>
+</div>
+```
+
+### Challenge 5: Solution
