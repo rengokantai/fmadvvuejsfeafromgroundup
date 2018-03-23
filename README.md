@@ -103,3 +103,15 @@ const myPlugin = {
   }
 }
 ```
+
+
+
+## Render functions
+
+### Virtual DOM
+```
+document.createElement('div')
+vm.$createElement('div')
+```
+virtual dom def:
+- A lightweight javascript data format to represent what the actual DOM should look like at a given point in time
