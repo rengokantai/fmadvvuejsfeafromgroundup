@@ -34,3 +34,72 @@ Goal
 - create an `autorun` function that takes an updater function
 - Inside the updater function you can explicitly depend on an instance of `Dep` by calling `dep.depend()`
 - Later, you can trigger the updater function to run again by calling `dep.notify()`
+```
+window.Dep = class Dep{
+  constructor(){
+    this.subscribers=new Set()
+  }
+  depend(){
+    if(activeUpdate){
+      this.subscribers/add(activeUpdate)
+    }
+  }
+  
+  notify(){
+    this.subscribers.forEach(sub=>sub())
+  }
+}
+let activeUpdate
+function autorun(update){
+  function wrappedUpdate(){
+    activeUpdate = wrappedUpdate;
+    update()
+    activeUpdate=null
+  }
+}
+
+autorun(()=>{
+  dep.depend()
+})
+```
+
+
+
+## Writing plugins
+```
+const vm = new Vue({
+  data: {foo:10},
+  rules:{
+    foo:{
+      validate: value=>value>1,
+      message: 'foo must greater than 1'
+    }
+  }
+})
+vm.foo=0 //should log `foo must greater than 1`
+```
+
+solution
+```
+Vue.use(myPlugin)
+const myPlugin = {
+  install(Vue){
+    Vue.mixin({
+      created(){
+        if(this.$options.rules){
+          Object.keys(this.$options.rules).forEach(key=>
+          {const rule=this.$options.rules[key]
+            this.$watch(key,(newValue)=>{
+              const = rule.validate(newValue)
+              if(!result){
+                console.log(rule.message)
+              }
+            })
+          }
+          ))
+        }
+       }
+    })
+  }
+}
+```
