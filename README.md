@@ -133,3 +133,12 @@ renders
 ```
 
 ### Challenge 5: Solution
+```
+Vue.component('example',{
+  props:['tags'],
+  render(h){
+    return h('div',this.tags.map((tag,i)=>h(tag,i)))
+  }
+})
+new Vue({el:'#app'})
+```
