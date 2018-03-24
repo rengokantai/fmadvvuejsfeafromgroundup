@@ -142,3 +142,42 @@ Vue.component('example',{
 })
 new Vue({el:'#app'})
 ```
+
+
+
+
+
+
+## Internationalization
+### Internationalization Plugin
+```
+<div id="app">
+  <h1>{{$t('welcome-message')}}</h1>
+  <button @click="changeLang('en')">English</button>
+</div>
+```
+```
+const i18nPlugin = {
+  install(Vue,locales){
+    Vue.prototype.$t=function(id){
+      return locales[this.$root.lang][id]
+    }
+  }
+}
+Vue.use(i18nPlugin, {
+  en:{'welcome-message':'hello'},
+  nl:{'welcome-message':'hela'}
+})
+
+new Vue({
+  el:'#app',
+  data:{
+    lang:'en'
+  },
+  methods: {
+    changeLang(lang){
+      this.lang=lang
+    }
+  }
+})
+```
